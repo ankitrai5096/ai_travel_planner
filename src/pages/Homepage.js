@@ -13,6 +13,24 @@ const Homepage = () => {
       <header style={{ textAlign: 'center', padding: '50px 20px', backgroundColor: '#ffffff' }}>
         <h2>Plan Your Dream Journey with AI</h2>
         <p style={{ fontSize: '18px', color: '#555' }}>Effortlessly design your perfect trip with our intelligent travel planner.</p>
+
+              {/* Book Now Button */}
+      <div style={{ textAlign: 'center', padding: '20px', backgroundColor: '#ffffff' }}>
+        <button
+          style={{
+            padding: '10px 30px',
+            backgroundColor: '#1e90ff',
+            color: 'white',
+            border: 'none',
+            borderRadius: '5px',
+            fontSize: '16px',
+            cursor: 'pointer',
+          }}
+          onClick={() => navigate('/Booking')}
+        >
+          Book Now
+        </button>
+      </div>
         <img
           src="https://media.cntraveler.com/photos/59cd14cb9465da68882fb4f4/master/pass/Debate_GettyImages-585587819.jpg"
           alt="Travel Banner"
@@ -72,23 +90,6 @@ const Homepage = () => {
         />
       </section>
 
-      {/* Book Now Button */}
-      <div style={{ textAlign: 'center', padding: '20px', backgroundColor: '#ffffff' }}>
-        <button
-          style={{
-            padding: '10px 20px',
-            backgroundColor: '#1e90ff',
-            color: 'white',
-            border: 'none',
-            borderRadius: '5px',
-            fontSize: '16px',
-            cursor: 'pointer',
-          }}
-          onClick={() => navigate('/Booking')}
-        >
-          Book Now
-        </button>
-      </div>
 
       {/* Footer */}
       <footer style={{ backgroundColor: '#1e90ff', color: 'white', textAlign: 'center', padding: '10px 20px', marginTop: '20px' }}>

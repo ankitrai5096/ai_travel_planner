@@ -1,47 +1,111 @@
-/* Navbar Styling */
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #333;
-    color: white;
-    padding: 20px 30px;
-  }
-  
-  .navbar-logo {
-    font-size: 24px;
-    font-weight: bold;
-  }
-  
-  .navbar-links {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .navbar-links li {
-    margin: 0 15px;
-  }
-  
-  .nav-link {
-    text-decoration: none;
-    color: white;
-    transition: color 0.3s;
-  }
-  
-  .nav-link:hover,
-  .nav-link.active {
-    color: #ff9800;
-  }
-  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  color: white;
+  padding: 20px 30px;
+}
+
+.navbar-logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.navbar-links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-links li {
+  margin: 0 15px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: white;
+  transition: color 0.3s;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: #ff9800;
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+}
+
+.login-button {
+  background-color: #ff9800;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-left: 20px;
+  transition: background-color 0.3s;
+}
+
+.login-button:hover {
+  background-color: #e68900;
+}
+
+.mobile-menu-icon {
+  display: none;
+  font-size: 24px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.login-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
   .mobile-menu-icon {
-    display: none;
-    font-size: 24px;
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
+    display: block;
   }
-  
-  
+
+  .navbar-links {
+    display: none;
+  }
+
+  .navbar-links-mobile {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    background-color: #333;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 100%;
+    padding: 20px;
+  }
+
+  .navbar-links-mobile li {
+    margin: 10px 0;
+  }
+}

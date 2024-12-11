@@ -1,0 +1,108 @@
+/* Full-page container with background image */
+.signin-container {
+    height: 100vh;
+    width: 100%;
+    background-image: url('https://lh5.googleusercontent.com/proxy/vR3ZepIFsJZE8L60NNXppBvXHy-HvFU10u-vLL7Pkc-3gR4RlWY5eWemTdQjpTy2l1ru4bpwXAPvrYx7On0u0kuVd-n3UEIIkySEZPzhKAO7VKvDoiEIKDfL6lGzRBweyDHx2rScKMTid-Om');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .logout-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #ff4c4c;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .logout-button:hover {
+    background-color: #ff1f1f;
+  }
+  
+  
+  /* Semi-transparent overlay for better text readability */
+  .signin-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Centered content box */
+  .signin-content {
+    text-align: center;
+    color: rgb(207, 205, 205);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .signin-title {
+    font-size: 48px;
+    margin-bottom: 10px;
+  }
+  
+  .signin-subtitle {
+    font-size: 18px;
+    margin-bottom: 30px;
+  }
+  
+  /* Google sign-in button styling */
+  .google-signin-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #efefef;
+    color: #333;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    width: 50%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  
+  .google-signin-button:hover {
+    background-color: #f4f4f4;
+    transform: translateY(-2px);
+  }
+  
+  .google-logo {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+  }
+  
+  /* Responsive design for mobile devices */
+  @media (max-width: 768px) {
+    .signin-title {
+      font-size: 36px;
+    }
+  
+    .signin-subtitle {
+      font-size: 16px;
+    }
+  
+    .google-signin-button {
+      font-size: 16px;
+      padding: 8px 16px;
+    }
+  }
+  
