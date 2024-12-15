@@ -16,7 +16,7 @@ const SignInPage = () => {
         const token = credential.accessToken;
         const user = result.user;
         console.log("User signed in: ", user);
-        navigate('/'); 
+        navigate('/Booking'); 
       })
       .catch((error) => {
         const errorCode = error.code;

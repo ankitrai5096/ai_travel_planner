@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from '../components/Navbar'; // Your existing Navbar component
 import { useNavigate } from 'react-router-dom';
+import Footer from '../components/Footer';
 
 const Homepage = () => {
     const navigate = useNavigate();
@@ -95,6 +96,7 @@ const Homepage = () => {
       <footer style={{ backgroundColor: '#1e90ff', color: 'white', textAlign: 'center', padding: '10px 20px', marginTop: '20px' }}>
         <p>&copy; {new Date().getFullYear()} AI Travel Planner. All rights reserved.</p>
       </footer>
+      <Footer />
     </div>
   );
 };

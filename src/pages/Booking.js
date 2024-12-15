@@ -7,7 +7,7 @@ const Booking = () => {
   return (
     <div style={{ fontFamily: 'Arial, sans-serif' }}>
       <BookingForm />
-      <RecommendedTrips />
+      {/* <RecommendedTrips /> */}
     </div>
   );
 };
