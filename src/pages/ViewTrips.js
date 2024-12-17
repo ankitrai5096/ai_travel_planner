@@ -3,9 +3,11 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { FireDB } from '../utils/Config';
 import InformationSection from '../components/trip/InformationSection';
+import './ViewTrips.css';
 
 function ViewTrips() {
-  const [trip, setTrip] = useState(null); // Default state is null
+  const [trip, setTrip] = useState(null);
+  const [loading, setLoading] = useState(true);
   const { tripId } = useParams();
 
   const getTripsData = async () => {
@@ -13,13 +15,14 @@ function ViewTrips() {
       const docRef = doc(FireDB, 'Trips', tripId);
       const docsnap = await getDoc(docRef);
       if (docsnap.exists()) {
-
         setTrip(docsnap.data());
       } else {
-        console.error("No data found for this trip ID");
+        console.error('No data found for this trip ID');
       }
     } catch (error) {
-      console.error("Error fetching trip data:", error);
+      console.error('Error fetching trip data:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -30,11 +33,13 @@ function ViewTrips() {
   }, [tripId]);
 
   return (
-    <div>
-      {trip ? (
-        <InformationSection trip={trip} />
+    <div className="view-trips-container">
+      {loading ? (
+        <div className="loader-container">
+          <div className="circular-loader"></div>
+        </div>
       ) : (
-        <div>Loading trip details...</div>
+        <InformationSection trip={trip} />
       )}
     </div>
   );

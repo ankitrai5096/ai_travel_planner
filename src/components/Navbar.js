@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './navbar.css'; // Import the CSS file for styling
 import { useNavigate } from 'react-router-dom';
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
+import UserProfileImage from './Innitials';
 
 const Navbar = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -18,16 +19,21 @@ const Navbar = () => {
     return () => unsubscribe(); // Clean up the listener
   }, [auth]);
 
-  const handleLogout = () => {
-    signOut(auth)
-      .then(() => {
-        console.log("User signed out.");
-        navigate('/signin');
-      })
-      .catch((error) => {
-        console.error("Error signing out:", error);
-      });
+
+  const navigateToSignin = () => {
+    navigate('/signin'); 
   };
+
+  // const handleLogout = () => {
+  //   signOut(auth)
+  //     .then(() => {
+  //       console.log("User signed out.");
+  //       navigate('/signin');
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error signing out:", error);
+  //     });
+  // };
 
   return (
     <nav className="navbar">
@@ -51,13 +57,8 @@ const Navbar = () => {
       </ul>
       <div className="navbar-actions">
         {user ? (
-          <div className="user-menu">
-            <img
-              src={"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"} // Use user's profile picture or a dummy icon
-              alt=""
-              className="user-avatar"
-              onClick={handleLogout} // Log out when clicking on the avatar (optional)
-            />
+          <div onClick={navigateToSignin} className="user-menu">
+              <UserProfileImage name={user.email} />
           </div>
         ) : (
           <button className="login-button" onClick={() => navigate('/signin')}>

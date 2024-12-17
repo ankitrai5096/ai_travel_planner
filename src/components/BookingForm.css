@@ -1,8 +1,8 @@
 /* Container */
 .booking-form-container {
     padding: 30px;
-    max-width: 900px;
-    margin: 40px auto;
+    max-width: 85vw;
+    margin: 70px auto;
     background-color: #f9f9f9;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -12,19 +12,21 @@
   .form-title {
     font-size: 2rem;
     font-weight: bold;
-    text-align: center;
+    text-align: left;
     color: #333;
+    margin: 30px 0px 10px 0px;
   }
   
   .form-description {
-    text-align: center;
+    text-align: left;
     color: #666;
-    margin-bottom: 20px;
+    margin: 0px;
+    margin-bottom: 60px;
   }
   
   /* Sections */
   .input-section {
-    margin-top: 20px;
+    margin-top: 40px;
   }
   
   .input-section h3 {
@@ -33,10 +35,11 @@
   }
   
   .input-box {
-    width: 100px;
+    width: 98%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+
   }
   
   /* Card Container */
@@ -48,19 +51,66 @@
   }
   
   .card {
-    flex: 0 0 23%; /* 4 cards per row (laptop) */
     border: 1px solid #ccc;
+    width: 250px;
+    height: 150px;
     border-radius: 10px;
-    padding: 15px;
+    padding: 15px 20px;
+    display: flex;
+        flex-direction: column;
+        justify-content: center;
     text-align: center;
     cursor: pointer;
     background-color: #fff;
     transition: all 0.3s ease;
   }
-  
+
+
+  /* Container for Loader */
+.loader-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: #f9f9f9; /* Light background */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+}
+
+/* Loader Bar Container */
+.loader {
+  width: 80%;
+  height: 10px;
+  background-color: #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 10px;
+}
+
+/* Animated Loader Bar */
+.loader-bar {
+  height: 100%;
+  background: linear-gradient(to right, #4caf50, #8bc34a); /* Gradient color */
+  transition: width 0.2s ease-in-out;
+}
+
+/* Loader Percentage Text */
+.loader-text {
+  font-size: 1.2rem;
+  color: #333;
+  font-weight: bold;
+}
+
   .card:hover {
     transform: translateY(-5px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #fff4a288;
+    color: white;
   }
   
   .selected {
@@ -71,17 +121,20 @@
     font-size: 2rem;
     margin-bottom: 10px;
     color: #4CAF50;
+    text-align: left;
   }
   
   .card-title {
     font-weight: bold;
     margin-bottom: 5px;
     color: #333;
+    text-align: left;
   }
   
   .card-description {
     font-size: 0.9rem;
     color: #777;
+    text-align: left;
   }
   
   /* Submit Button */

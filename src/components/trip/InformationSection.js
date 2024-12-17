@@ -5,7 +5,6 @@ const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API;
 
 const PHOTO_REF_URL = `https://places.googleapis.com/v1/{NAME}/media?maxHeightPx=1000&maxWidthPx=1000&key=${apiKey}`;
 
-
 function InformationSection({ trip }) {
   const {
     location = "Unknown Location",
@@ -17,8 +16,8 @@ function InformationSection({ trip }) {
   const days = itinerary;
   const [photoUrls, setPhotoUrls] = useState({
     location: null,
-    hotels: {},    // Will store hotel images by hotel name
-    activities: {} // Will store activity images by place name
+    hotels: {}, 
+    activities: {},
   });
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -32,30 +31,19 @@ function InformationSection({ trip }) {
     setIsLoading(true);
     setError(null);
     try {
-      // For location
-      const locationData = {
-        textQuery: location
-      };
+      const locationData = { textQuery: location };
       const locationResponse = await getPlaceDetails(locationData);
       const locationPhotoUrl = PHOTO_REF_URL.replace(
         "{NAME}",
         locationResponse.data.places[0].photos[0].name
       );
 
-      // Initialize new photo URLs object
-      const newPhotoUrls = {
-        location: locationPhotoUrl,
-        hotels: {},
-        activities: {}
-      };
+      const newPhotoUrls = { location: locationPhotoUrl, hotels: {}, activities: {} };
 
-      // For hotels
-      if (hotels && hotels.length > 0) {
+      if (hotels.length > 0) {
         for (const hotel of hotels) {
           try {
-            const hotelData = {
-              textQuery: hotel.hotelName
-            };
+            const hotelData = { textQuery: hotel.hotelName };
             const hotelResponse = await getPlaceDetails(hotelData);
             newPhotoUrls.hotels[hotel.hotelName] = PHOTO_REF_URL.replace(
               "{NAME}",
@@ -67,15 +55,12 @@ function InformationSection({ trip }) {
         }
       }
 
-      // For places in itinerary
       if (days) {
         for (const dayKey in days) {
           const day = days[dayKey];
           for (const activity of day.activities) {
             try {
-              const placeData = {
-                textQuery: activity.placeName
-              };
+              const placeData = { textQuery: activity.placeName };
               const placeResponse = await getPlaceDetails(placeData);
               newPhotoUrls.activities[activity.placeName] = PHOTO_REF_URL.replace(
                 "{NAME}",
@@ -103,9 +88,7 @@ function InformationSection({ trip }) {
     }
   }, [trip, location]);
 
-  if (error) {
-    return <div style={errorStyle}>{error}</div>;
-  }
+  if (error) return <div style={errorStyle}>{error}</div>;
 
   return (
     <div style={containerStyle}>
@@ -122,74 +105,95 @@ function InformationSection({ trip }) {
 
       {/* Hotels Section */}
       <h2 style={sectionHeadingStyle}>Hotels</h2>
-      <div style={sectionStyle}>
-        {hotels.length > 0 ? (
-          hotels.map((hotel, index) => (
-            <div
-              key={index}
-              style={cardStyle}
-              onClick={() => redirectToGoogleMaps(hotel.hotelName)}
-            >
-              <img
-                src={photoUrls.hotels[hotel.hotelName] || "default-hotel-image.jpg"}
-                alt={hotel.hotelName || "Hotel"}
-                style={imageStyle}
-              />
-              <h3 style={cardTitleStyle}>{hotel.hotelName || "Unknown Hotel"}</h3>
-              <p style={cardTextStyle}>Rating: {hotel.rating || "N/A"} ⭐</p>
-              <p style={cardTextStyle}>
-                Price: £{hotel.prices?.averageNightly || "N/A"}/night
-              </p>
-            </div>
-          ))
-        ) : (
-          <p>No hotels available</p>
-        )}
-      </div>
+      {isLoading ? (
+        <div style={loadingOverlayStyle}></div>
+      ) : (
+        <div style={sectionStyle}>
+          {hotels.length > 0 ? (
+            hotels.map((hotel, index) => (
+              <div
+                key={index}
+                style={cardStyle}
+                onClick={() => redirectToGoogleMaps(hotel.hotelName)}
+              >
+                <img
+                  src={photoUrls.hotels[hotel.hotelName] || "default-hotel-image.jpg"}
+                  alt={hotel.hotelName || "Hotel"}
+                  style={imageStyle}
+                />
+                <h3 style={cardTitleStyle}>{hotel.hotelName || "Unknown Hotel"}</h3>
+                <p style={cardTextStyle}>Rating: {hotel.rating || "N/A"} ⭐</p>
+                <p style={cardTextStyle}>
+                  Price: £{hotel.prices?.averageNightly || "N/A"}/night
+                </p>
+              </div>
+            ))
+          ) : (
+            <p>No hotels available</p>
+          )}
+        </div>
+      )}
 
       {/* Itinerary Section */}
       <h2 style={sectionHeadingStyle}>Places to visit</h2>
-      <div style={itinerarySectionStyle}>
-        {Object.keys(days).map((dayKey, index) => {
-          const day = days[dayKey];
-          return (
-            <div key={index} style={dayCardStyle}>
-              <h3 style={dayTitleStyle}>{`Day ${index + 1}: ${day.theme}`}</h3>
-              <p style={bestTimeStyle}>Best Time to Visit: {day.bestTimeToVisit}</p>
-              
-              {day.activities.length > 0 ? (
-                <div style={activitiesSectionStyle}>
-                  <div style={activitiesStyle}>
-                    {day.activities.map((activity, activityIndex) => (
-                      <div
-                        key={activityIndex}
-                        style={activityCardStyle}
-                        onClick={() => redirectToGoogleMaps(activity.placeName)}
-                      >
-                        <img
-                          src={photoUrls.activities[activity.placeName] || "default-place-image.jpg"}
-                          alt={activity.placeName || "Place"}
-                          style={activityImageStyle}
-                        />
-                        <h4 style={activityTitleStyle}>{activity.placeName || "Unknown Place"}</h4>
-                        <p style={activityDetailsStyle}>{activity.placeDetails}</p>
-                        <p style={activityTextStyle}>Ticket: {activity.ticketPricing}</p>
-                        <p style={activityTextStyle}>Travel Time: {activity.travelTimeFromHotel}</p>
-                      </div>
-                    ))}
+      {isLoading ? (
+        <div style={loadingOverlayStyle}></div>
+      ) : (
+        <div style={itinerarySectionStyle}>
+          {Object.keys(days).map((dayKey, index) => {
+            const day = days[dayKey];
+            return (
+              <div key={index} style={dayCardStyle}>
+                <h3 style={dayTitleStyle}>{`Day ${index + 1}: ${day.theme}`}</h3>
+                <p style={bestTimeStyle}>Best Time to Visit: {day.bestTimeToVisit}</p>
+
+                {day.activities.length > 0 ? (
+                  <div style={activitiesSectionStyle}>
+                    <div style={activitiesStyle}>
+                      {day.activities.map((activity, activityIndex) => (
+                        <div
+                          key={activityIndex}
+                          style={activityCardStyle}
+                          onClick={() => redirectToGoogleMaps(activity.placeName)}
+                        >
+                          <img
+                            src={
+                              photoUrls.activities[activity.placeName] ||
+                              "default-place-image.jpg"
+                            }
+                            alt={activity.placeName || "Place"}
+                            style={activityImageStyle}
+                          />
+                          <h4 style={activityTitleStyle}>
+                            {activity.placeName || "Unknown Place"}
+                          </h4>
+                          <p style={activityDetailsStyle}>{activity.placeDetails}</p>
+                          <p style={activityTextStyle}>
+                            Ticket: {activity.ticketPricing}
+                          </p>
+                          <p style={activityTextStyle}>
+                            Travel Time: {activity.travelTimeFromHotel}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ) : (
-                <p>No activities available</p>
-              )}
-            </div>
-          );
-        })}
-      </div>
-      <Footer/>
+                ) : (
+                  <p>No activities available</p>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      <Footer />
     </div>
   );
 }
+
+// Add styles (same as your original code above)
+
 
 // Styles
 const containerStyle = {
